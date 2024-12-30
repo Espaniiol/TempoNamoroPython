@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tempo de Namoro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            color: #4b2c4c;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 3rem;
+            color: #ffffff;
+            text-shadow: 2px 2px 5px #f48fb1;
+        }
+        .card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .alert {
+            background: #ffe4e1;
+            color: #4b2c4c;
+            font-size: 1.5rem;
+            border-radius: 10px;
+        }
+        .heart-icon {
+            font-size: 2rem;
+            color: #f06292;
+        }
+        .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .image-gallery img {
+            border-radius: 15px;
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 100%; /* Garante que as imagens não ultrapassem o limite da tela */
+        }
+        footer {
+            margin-top: 40px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem; /* Ajusta o tamanho do título em telas pequenas */
+            }
+            .alert {
+                font-size: 1.2rem; /* Ajusta o tamanho da mensagem */
+            }
+            .image-gallery img {
+                width: 120px; /* Ajusta o tamanho das imagens em dispositivos móveis */
+                height: 120px;
+            }
+            .container {
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem; /* Menor título em telas muito pequenas */
+            }
+            .alert {
+                font-size: 1rem; /* Ajuste do tamanho da mensagem */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💖 Nosso Tempo de Namoro 💖</h1>
+        <div class="card p-4 mt-4">
+            <p class="fs-5">Estamos juntos há:</p>
+            <div class="alert" id="tempo">
+                <!-- O tempo será gerado e atualizado pelo JavaScript -->
+            </div>
+        </div>
+        <div class="image-gallery">
+            <img src="img/foto1.jpeg" alt="Foto 1">
+            <img src="img/foto2.jpeg" alt="Foto 2">
+            <img src="img/foto3.jpeg" alt="Foto 3">
+            <img src="img/foto4.jpeg" alt="Foto 4">
+            <img src="img/foto5.jpeg" alt="Foto 5">
+        </div>
+        <footer class="mt-5">
+            <p class="text-white">Feito com muito amor ❤️</p>
+        </footer>
+    </div>
+
+    <script>
+        // Data de início do namoro (ano, mês, dia, hora, minuto, segundo)
+        const dataInicio = new Date(2024, 0, 14, 14, 5, 0);  // Exemplo: 14 de Janeiro de 2024 às 15:30:00
+
+        function calcularTempo() {
+            const agora = new Date();
+            let anos = agora.getFullYear() - dataInicio.getFullYear();
+            let meses = agora.getMonth() - dataInicio.getMonth();
+            let dias = agora.getDate() - dataInicio.getDate();
+
+            // Se o mês atual for menor que o mês de início, subtrai 1 ano e ajusta os meses
+            if (meses < 0) {
+                anos--;
+                meses += 12;
+            }
+
+            // Se o dia atual for menor que o dia de início, ajusta o mês e o número de dias
+            if (dias < 0) {
+                meses--;
+                const ultimoDiaDoMes = new Date(agora.getFullYear(), agora.getMonth(), 0).getDate();
+                dias += ultimoDiaDoMes;
+            }
+
+            // Cálculo das semanas e dias restantes
+            const semanas = Math.floor(dias / 7);
+            dias = dias % 7;
+
+            // Cálculo das horas, minutos e segundos
+            const horas = agora.getHours() - dataInicio.getHours();
+            const minutos = agora.getMinutes() - dataInicio.getMinutes();
+            const segundos = agora.getSeconds() - dataInicio.getSeconds();
+
+            // Exibindo o resultado no HTML
+            document.getElementById('tempo').innerHTML = `
+                <span class="heart-icon">❤️</span> <strong>${anos}</strong> anos, 
+                <span class="heart-icon">🌸</span> <strong>${meses}</strong> meses, 
+                <span class="heart-icon">🌼</span> <strong>${semanas}</strong> semanas, 
+                <span class="heart-icon">✨</span> <strong>${dias}</strong> dias, 
+                <span class="heart-icon">🕒</span> <strong>${horas}</strong> horas, 
+                <span class="heart-icon">⏰</span> <strong>${minutos}</strong> minutos, e 
+                <span class="heart-icon">💫</span> <strong>${segundos}</strong> segundos.
+            `;
+        }
+
+        // Chama a função calcularTempo a cada 1000ms (1 segundo) para atualizar o tempo
+        setInterval(calcularTempo, 1000);
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
