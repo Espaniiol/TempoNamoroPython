@@ -1,0 +1,8 @@
+<h1>Lista de Cursos</h1>
+<ul>
+    {% for curso in cursos %}
+        <li>{{ curso.nome }} - {{ curso.carga_horaria }} horas</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'adicionar_curso' %}">Adicionar Novo Curso</a>
+

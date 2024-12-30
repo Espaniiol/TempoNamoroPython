@@ -1,0 +1,12 @@
+<h1>Lista de Produtos</h1>
+<ul>
+  {% for produto in produtos %}
+    <li>Nome do Produto: {{ produto.nome }}</li>
+    <li>Descricao do Produto: {{ produto.descricao }}</li>
+    <li>Valor em R$ do Produto: {{ produto.preco }}</li>
+    <li>Quantidade em estoque do Produto: {{ produto.estoque }}</li>
+    ------------------------------------------------------------
+    <br>
+  {% endfor %}
+</ul>
+<a href="{% url 'cadastrar_produto' %}">Adicionar Novo Produto</a>
