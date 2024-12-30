@@ -130,10 +130,23 @@
             const semanas = Math.floor(dias / 7);
             dias = dias % 7;
 
-            // Cálculo das horas, minutos e segundos
-            const horas = agora.getHours() - dataInicio.getHours();
-            const minutos = agora.getMinutes() - dataInicio.getMinutes();
-            const segundos = agora.getSeconds() - dataInicio.getSeconds();
+            // Cálculo das horas, minutos e segundos (ajustando para evitar valores negativos)
+            let horas = agora.getHours() - dataInicio.getHours();
+            let minutos = agora.getMinutes() - dataInicio.getMinutes();
+            let segundos = agora.getSeconds() - dataInicio.getSeconds();
+
+            // Se horas, minutos ou segundos ficarem negativos, ajusta para o próximo ciclo
+            if (segundos < 0) {
+                segundos += 60;
+                minutos--;
+            }
+            if (minutos < 0) {
+                minutos += 60;
+                horas--;
+            }
+            if (horas < 0) {
+                horas += 24;
+            }
 
             // Exibindo o resultado no HTML
             document.getElementById('tempo').innerHTML = `
